@@ -23,3 +23,22 @@ function rockPaperScissors() {
             break;
     }
 }
+
+// Write a function that takes the user choice and returns it.
+/*
+1) store user input in a variable
+2) check if user input is rock, paper or scissors
+3) if not, ask again
+4) return user input
+*/
+
+function userInput() {
+    let input = prompt("Please select rock, paper or scissors");
+
+    while (input !== "rock" && input !== "paper" && input !== "scissors") {
+        alert("The value you selected is not valid. The only valid choices are rock, paper or scissors.");
+        input = prompt("Please select rock, paper or scissors");
+    }
+
+    return input;
+}
