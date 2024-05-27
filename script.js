@@ -112,3 +112,5 @@ function playGame() {
         }
     }
 }
+
+playGame();
