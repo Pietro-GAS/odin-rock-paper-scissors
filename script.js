@@ -9,3 +9,17 @@
 function random13() {
     return Math.ceil(Math.random()*3);
 }
+
+function rockPaperScissors() {
+    switch (random13()) {
+        case 1:
+            return "rock";
+            break;
+        case 2:
+            return "paper";
+            break;
+        case 3:
+            return "scissors";
+            break;
+    }
+}
