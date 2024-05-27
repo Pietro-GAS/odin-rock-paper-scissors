@@ -36,7 +36,7 @@ function getHumanChoice() {
     let input = prompt("Please select rock, paper or scissors").toLowerCase();
 
     while (input !== "rock" && input !== "paper" && input !== "scissors") {
-        alert("The value you selected is not valid. The only valid choices are rock, paper or scissors.");
+        console.log("The value you selected is not valid. The only valid choices are rock, paper or scissors.");
         input = prompt("Please select rock, paper or scissors").toLowerCase();
     }
 
@@ -78,9 +78,37 @@ function playRound() {
         console.log(message + ` It's a draw!`);
     } else if (computerChoice == "rock" && humanChoice == "scissors" || computerChoice == "paper" && humanChoice == "rock" || computerChoice == "scissors" && humanChoice == "paper") {
         console.log(message + ` The computer won!`);
-        computerScore++;
+        ++computerScore;
     } else {
         console.log(message + ` You won!`);
-        humanScore++;
+        ++humanScore;
+    }
+}
+
+// Write the logic to play the entire game, consisting of 5 rounds
+/*
+1) create a variable to track the number of rounds played and set it to 0
+2) call the function playRound() until you have played 5 rounds
+3) after each round, post the scores
+4) after the 5 rounds, compare the scores
+5) declare the winner
+*/
+
+function playGame() {
+    let roundsPlayed = 0;
+    let scoreMessage;
+
+    while (roundsPlayed < 5) {
+        console.log(`\nROUND ${roundsPlayed + 1}`);
+        playRound();
+        ++roundsPlayed;
+        scoreMessage = `You: ${humanScore}. Computer: ${computerScore}.\n`;
+        if (roundsPlayed < 5) {
+            console.log(`\nCURRENT SCORE\n` + scoreMessage + `\n`);
+        } else {
+            let winnerMessage;
+            (computerScore > humanScore) ? winnerMessage = `\nThe computer won!` : winnerMessage = `\nYou won!`;
+            console.log(`\nFINAL SCORE\n` + scoreMessage + winnerMessage);
+        }
     }
 }
