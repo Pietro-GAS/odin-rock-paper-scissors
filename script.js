@@ -42,3 +42,12 @@ function userInput() {
 
     return input;
 }
+
+// Write variables to keep track of the players score.
+/*
+1) initialize two variables to track user and computer scores
+2) set the variables to 0
+*/
+
+let humanScore = 0;
+let computerScore = 0;
