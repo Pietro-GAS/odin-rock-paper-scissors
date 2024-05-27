@@ -107,7 +107,13 @@ function playGame() {
             console.log(`\nCURRENT SCORE\n` + scoreMessage + `\n`);
         } else {
             let winnerMessage;
-            (computerScore > humanScore) ? winnerMessage = `\nThe computer won!` : winnerMessage = `\nYou won!`;
+            if (computerScore == humanScore) {
+                winnerMessage = `\nIt's a draw!`;
+            } else if (computerScore > humanScore) {
+                winnerMessage = `\nThe computer won!`;
+            } else {
+                winnerMessage = `\nYou won!`;
+            }
             console.log(`\nFINAL SCORE\n` + scoreMessage + winnerMessage);
         }
     }
