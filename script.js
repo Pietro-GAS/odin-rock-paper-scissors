@@ -10,7 +10,7 @@ function random13() {
     return Math.ceil(Math.random()*3);
 }
 
-function rockPaperScissors() {
+function getComputerChoice() {
     switch (random13()) {
         case 1:
             return "rock";
@@ -32,12 +32,12 @@ function rockPaperScissors() {
 4) return user input
 */
 
-function userInput() {
-    let input = prompt("Please select rock, paper or scissors");
+function getHumanChoice() {
+    let input = prompt("Please select rock, paper or scissors").toLowerCase();
 
     while (input !== "rock" && input !== "paper" && input !== "scissors") {
         alert("The value you selected is not valid. The only valid choices are rock, paper or scissors.");
-        input = prompt("Please select rock, paper or scissors");
+        input = prompt("Please select rock, paper or scissors").toLowerCase();
     }
 
     return input;
@@ -51,3 +51,36 @@ function userInput() {
 
 let humanScore = 0;
 let computerScore = 0;
+
+// Write the logic to play a single round
+/*
+1) generate computer choice and store it in a variable
+2) prompt user choice and store it in a variable
+3) Post "You chose ${humanChoice}. The computer chose ${computerChoice}." to the console
+4) if the two choices are the same post "It's a draw!" to the console
+5) if the two choices are not the same, compare them:
+  a) IF computer chose rock and human chose scissors OR computer chose paper and human chose rock
+     OR computer chose scissors and human chose paper: computer won
+  b) raise computer score by 1
+  c) post "The computer won!" to the console
+  d) ELSE: human won
+  e) raise user score by 1
+  f) post "You won!" to the console
+*/
+
+function playRound() {
+    let computerChoice = getComputerChoice();
+    let humanChoice = getHumanChoice();
+
+    let message = `You chose ${humanChoice}. The computer chose ${computerChoice}.`;
+
+    if (computerChoice == humanChoice) {
+        console.log(message + ` It's a draw!`);
+    } else if (computerChoice == "rock" && humanChoice == "scissors" || computerChoice == "paper" && humanChoice == "rock" || computerChoice == "scissors" && humanChoice == "paper") {
+        console.log(message + ` The computer won!`);
+        computerScore++;
+    } else {
+        console.log(message + ` You won!`);
+        humanScore++;
+    }
+}
