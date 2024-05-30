@@ -142,4 +142,6 @@ btnScissors.setAttribute("id", "scissors");
 btnScissors.textContent = "Scissors";
 
 // Add event listeners to call playRound with the correct selection
-btnRock.addEventListener("click", playRound())
+btnRock.addEventListener("click", playRound("rock"));
+btnPaper.addEventListener("click", playRound("paper"));
+btnScissors.addEventListener("click", playRound("scissors"));
