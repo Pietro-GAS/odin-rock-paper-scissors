@@ -50,6 +50,7 @@ function getHumanChoice() {
 2) set the variables to 0
 */
 
+let roundsPlayed = 0;
 let humanScore = 0;
 let computerScore = 0;
 
@@ -79,18 +80,29 @@ function playRound(choice) {
 
     if (computerChoice == humanChoice) {
         message += ` It's a draw!`;
-        return [message, humanScore, computerScore];
     } else if (computerChoice == "rock" && humanChoice == "scissors" ||
       computerChoice == "paper" && humanChoice == "rock" ||
       computerChoice == "scissors" && humanChoice == "paper") {
         ++computerScore;
         message += ` The computer won!`;
-        return [message, humanScore, computerScore];
     } else {
         ++humanScore;
         message += ` You won!`;
-        return [message, humanScore, computerScore];
     }
+    ++roundsPlayed;
+    return [message, humanScore, computerScore, roundsPlayed];
+}
+
+function restart() {
+    roundsPlayed = 0;
+    humanScore = 0;
+    computerScore = 0;
+    resultBox.textContent = "Press a button to play!";
+    scoreBox.textContent = "";
+    container.removeChild(btnRestart);
+    btnRock.removeAttribute("disabled");
+    btnPaper.removeAttribute("disabled");
+    btnScissors.removeAttribute("disabled");
 }
 
 // Write the logic to play the entire game, consisting of 5 rounds
@@ -144,6 +156,13 @@ const btnScissors = document.createElement("button");
 btnScissors.setAttribute("id", "scissors");
 btnScissors.textContent = "Scissors";
 
+/*
+const btnRestart =  document.createElement("button");
+btnRestart.setAttribute("id", "restart");
+btnRestart.textContent = "Restart";
+btnRestart.addEventListener("click", restart);
+*/
+
 const container = document.createElement("div");
 container.setAttribute("id", "container");
 
@@ -162,21 +181,43 @@ container.appendChild(resultBox);
 
 const scoreBox = document.createElement("div");
 scoreBox.setAttribute("id", "results");
-scoreBox.textContent = `You: ${humanScore}. Computer: ${computerScore}.`;
 container.appendChild(scoreBox);
 
 const body = document.querySelector("body");
 body.appendChild(container);
 
+const btnRestart =  document.createElement("button");
+btnRestart.setAttribute("id", "restart");
+btnRestart.textContent = "Restart";
+btnRestart.addEventListener("click", restart);
+
 // Add event listeners to call playRound with the correct selection
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll("button:not(#restart)");
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         let round = playRound(button.getAttribute("id"))
         let message = round[0];
-        let humanScore = round[1];
-        let computerScore = round[2]
+        let humanScore = +round[1];
+        let computerScore = +round[2]
+        let roundsPlayed = round[3];
+        let winner;
         resultBox.textContent = message;
-        scoreBox.textContent = `You: ${humanScore}. Computer: ${computerScore}.`;
+        if (roundsPlayed < 5) {
+            scoreBox.textContent = `You: ${humanScore}. Computer: ${computerScore}.`;
+        } else {
+            scoreBox.textContent = `FINAL SCORE: You: ${humanScore}. Computer: ${computerScore}.`;
+            if (humanScore == computerScore) {
+                winner = `It's a draw!`;
+            } else if (humanScore >= computerScore) {
+                winner = `You won!`;
+            } else {
+                winner = `The computer won!`;
+            }
+            resultBox.textContent = `GAME OVER! ${winner}`;
+            btnRock.setAttribute("disabled", "disbled");
+            btnPaper.setAttribute("disabled", "disbled");
+            btnScissors.setAttribute("disabled", "disbled");
+            container.appendChild(btnRestart);
+        }
     });
 });
