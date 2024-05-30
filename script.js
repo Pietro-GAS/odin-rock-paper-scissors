@@ -70,9 +70,9 @@ let computerScore = 0;
   f) post "You won!" to the console
 */
 
-function playRound() {
+function playRound(choice) {
     let computerChoice = getComputerChoice();
-    let humanChoice = getHumanChoice();
+    let humanChoice = choice;
 
     let message = `You chose ${humanChoice}.
       The computer chose ${computerChoice}.`;
