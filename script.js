@@ -86,9 +86,12 @@ const titleBox = document.createElement("h1");
 titleBox.textContent = "Rock, Paper, Scissors";
 container.appendChild(titleBox);
 
-container.appendChild(btnRock);
-container.appendChild(btnPaper);
-container.appendChild(btnScissors);
+const btnContainer = document.createElement("div");
+btnContainer.setAttribute("id", "btncontainer");
+btnContainer.appendChild(btnRock);
+btnContainer.appendChild(btnPaper);
+btnContainer.appendChild(btnScissors);
+container.appendChild(btnContainer);
 
 const resultBox = document.createElement("div");
 resultBox.setAttribute("id", "results");
