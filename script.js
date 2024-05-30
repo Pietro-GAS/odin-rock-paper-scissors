@@ -74,8 +74,8 @@ function playRound(choice) {
     let computerChoice = getComputerChoice();
     let humanChoice = choice;
 
-    let message = `You chose ${humanChoice}.
-      The computer chose ${computerChoice}.`;
+    let message = `You chose ${humanChoice}. ` +
+      `The computer chose ${computerChoice}.`;
 
     if (computerChoice == humanChoice) {
         console.log(message + ` It's a draw!`);
@@ -142,9 +142,9 @@ btnScissors.setAttribute("id", "scissors");
 btnScissors.textContent = "Scissors";
 
 // Add event listeners to call playRound with the correct selection
-btnRock.addEventListener("click", playRound("rock"));
-btnPaper.addEventListener("click", playRound("paper"));
-btnScissors.addEventListener("click", playRound("scissors"));
+btnRock.addEventListener("click", () => playRound("rock"));
+btnPaper.addEventListener("click", () => playRound("paper"));
+btnScissors.addEventListener("click", () => playRound("scissors"));
 
 const container = document.createElement("div");
 container.setAttribute("id", "container");
@@ -152,6 +152,10 @@ container.setAttribute("id", "container");
 container.appendChild(btnRock);
 container.appendChild(btnPaper);
 container.appendChild(btnScissors);
+
+const resultBox = document.createElement("div");
+resultBox.setAttribute("id", "results");
+container.appendChild(resultBox);
 
 const body = document.querySelector("body");
 body.appendChild(container);
