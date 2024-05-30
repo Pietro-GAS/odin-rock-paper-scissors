@@ -99,6 +99,7 @@ function playRound() {
 5) declare the winner
 */
 
+/*
 function playGame() {
     let roundsPlayed = 0;
     let scoreMessage;
@@ -125,3 +126,20 @@ function playGame() {
 }
 
 playGame();
+*/
+
+// Add 3 buttons
+const btnRock = document.createElement("button");
+btnRock.setAttribute("id", "rock");
+btnRock.textContent = "Rock";
+
+const btnPaper = document.createElement("button");
+btnPaper.setAttribute("id", "paper");
+btnPaper.textContent = "Paper";
+
+const btnScissors = document.createElement("button");
+btnScissors.setAttribute("id", "scissors");
+btnScissors.textContent = "Scissors";
+
+// Add event listeners to call playRound with the correct selection
+btnRock.addEventListener("click", playRound())
