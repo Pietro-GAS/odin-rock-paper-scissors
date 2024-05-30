@@ -79,17 +79,17 @@ function playRound(choice) {
 
     if (computerChoice == humanChoice) {
         message += ` It's a draw!`;
-        return message;
+        return [message, humanScore, computerScore];
     } else if (computerChoice == "rock" && humanChoice == "scissors" ||
       computerChoice == "paper" && humanChoice == "rock" ||
       computerChoice == "scissors" && humanChoice == "paper") {
         ++computerScore;
         message += ` The computer won!`;
-        return message;
+        return [message, humanScore, computerScore];
     } else {
         ++humanScore;
         message += ` You won!`;
-        return message;
+        return [message, humanScore, computerScore];
     }
 }
 
@@ -144,19 +144,12 @@ const btnScissors = document.createElement("button");
 btnScissors.setAttribute("id", "scissors");
 btnScissors.textContent = "Scissors";
 
-// Add event listeners to call playRound with the correct selection
-btnRock.addEventListener("click", () => {
-    resultBox.textContent = playRound(btnRock.getAttribute("id"));
-});
-btnPaper.addEventListener("click", () => {
-    resultBox.textContent = playRound(btnPaper.getAttribute("id"));
-});
-btnScissors.addEventListener("click", () => {
-    resultBox.textContent = playRound(btnScissors.getAttribute("id"));
-});
-
 const container = document.createElement("div");
 container.setAttribute("id", "container");
+
+const titleBox = document.createElement("h1");
+titleBox.textContent = "Rock, Paper, Scissors";
+container.appendChild(titleBox);
 
 container.appendChild(btnRock);
 container.appendChild(btnPaper);
@@ -164,7 +157,26 @@ container.appendChild(btnScissors);
 
 const resultBox = document.createElement("div");
 resultBox.setAttribute("id", "results");
+resultBox.textContent = "Press a button to play!";
 container.appendChild(resultBox);
+
+const scoreBox = document.createElement("div");
+scoreBox.setAttribute("id", "results");
+scoreBox.textContent = `You: ${humanScore}. Computer: ${computerScore}.`;
+container.appendChild(scoreBox);
 
 const body = document.querySelector("body");
 body.appendChild(container);
+
+// Add event listeners to call playRound with the correct selection
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        let round = playRound(button.getAttribute("id"))
+        let message = round[0];
+        let humanScore = round[1];
+        let computerScore = round[2]
+        resultBox.textContent = message;
+        scoreBox.textContent = `You: ${humanScore}. Computer: ${computerScore}.`;
+    });
+});
